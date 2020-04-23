@@ -3,10 +3,10 @@ package art.nedink.processingphysics;
 import art.nedink.processingphysics.cutec2.C2Circle;
 import art.nedink.processingphysics.cutec2.C2v;
 
-public class CircleBody {
+public abstract class PhysicsBody {
 
+    C2Circle perim;
     public C2v velocity = new C2v();
-    public C2Circle circle;
     public float restitution = 1f;
-    public final float mass = 1f;
+    public float mass = 0f;
 }

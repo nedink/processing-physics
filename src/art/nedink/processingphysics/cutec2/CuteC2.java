@@ -1,14 +1,21 @@
 package art.nedink.processingphysics.cutec2;
 
-import art.nedink.processingphysics.CircleBody;
+import art.nedink.processingphysics.PhysicsBody;
 
 import static java.lang.Math.cos;
+import static java.lang.Math.max;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
 
 public final class CuteC2 {
 
     // adjust these primitives as seen fit
+    static float c2Rand(float max) {
+        return (float) Math.random() * max;
+    }
+    static float c2Rand() {
+        return c2Rand(1);
+    }
     static float c2Sin(float radians) {
         return (float) sin(radians);
     }
@@ -51,7 +58,7 @@ public final class CuteC2 {
     // a transform with a vector, and transpose the transform".
 
     // vector ops
-    static C2v c2V(float x, float y) { C2v a = new C2v();a.x = x;a.y = y; return a; }
+    public static C2v c2V(float x, float y) { C2v a = new C2v();a.x = x;a.y = y; return a; }
     static C2r c2R(float c, float s) { C2r r = new C2r();r.c = c;r.s = s; return r; }
     static C2v c2Add(C2v a, C2v b) { return c2V(a.x + b.x, a.y + b.y); }
     static C2v c2Sub(C2v a, C2v b) { return c2V(a.x - b.x, a.y - b.y); }
@@ -112,6 +119,10 @@ public final class CuteC2 {
     static C2h c2MulxhT(C2x a, C2h b) { C2h c = new C2h();c.n = c2MulrvT(a.r, b.n);c.d = c2Dot(c2MulxvT(a, c2Origin(b)), c.n); return c; }
     static C2v c2Intersect(C2v a, C2v b, float da, float db) { return c2Add(a, c2Mulvs(c2Sub(b, a), (da / (da - db)))); }
 
+    public static C2v c2Random() {
+        return c2V(c2Cos((float) (Math.random() * 2 * Math.PI)), c2Sin((float) (Math.random() * 2 * Math.PI)));
+    }
+
 //    void c2BBVerts(c2v* out, c2AABB* bb)
 //    {
 //        out[0] = bb->min;
@@ -147,7 +158,7 @@ public final class CuteC2 {
         return m;
     }
 
-    public static void resolveCollision(CircleBody a, CircleBody b, C2Manifold m)
+    public static void resolveCollision(PhysicsBody a, PhysicsBody b, C2Manifold m)
     {
         // Calculate relative velocity
         C2v rv = c2Sub(b.velocity, a.velocity);
