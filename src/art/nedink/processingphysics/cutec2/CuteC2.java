@@ -3,19 +3,12 @@ package art.nedink.processingphysics.cutec2;
 import art.nedink.processingphysics.PhysicsBody;
 
 import static java.lang.Math.cos;
-import static java.lang.Math.max;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
 
 public final class CuteC2 {
 
     // adjust these primitives as seen fit
-    static float c2Rand(float max) {
-        return (float) Math.random() * max;
-    }
-    static float c2Rand() {
-        return c2Rand(1);
-    }
     static float c2Sin(float radians) {
         return (float) sin(radians);
     }
@@ -61,7 +54,7 @@ public final class CuteC2 {
     public static C2v c2V(float x, float y) { C2v a = new C2v();a.x = x;a.y = y; return a; }
     static C2r c2R(float c, float s) { C2r r = new C2r();r.c = c;r.s = s; return r; }
     static C2v c2Add(C2v a, C2v b) { return c2V(a.x + b.x, a.y + b.y); }
-    static C2v c2Sub(C2v a, C2v b) { return c2V(a.x - b.x, a.y - b.y); }
+    public static C2v c2Sub(C2v a, C2v b) { return c2V(a.x - b.x, a.y - b.y); }
     static float c2Dot(C2v a, C2v b) { return a.x * b.x + a.y * b.y; }
     static C2v c2Mulvs(C2v a, float b) { return c2V(a.x * b, a.y * b); }
     static C2v c2Mulvv(C2v a, C2v b) { return c2V(a.x * b.x, a.y * b.y); }
@@ -120,7 +113,8 @@ public final class CuteC2 {
     static C2v c2Intersect(C2v a, C2v b, float da, float db) { return c2Add(a, c2Mulvs(c2Sub(b, a), (da / (da - db)))); }
 
     public static C2v c2Random() {
-        return c2V(c2Cos((float) (Math.random() * 2 * Math.PI)), c2Sin((float) (Math.random() * 2 * Math.PI)));
+        float r = (float) (Math.random() * 2 * Math.PI);
+        return c2V(c2Cos(r), c2Sin(r));
     }
 
 //    void c2BBVerts(c2v* out, c2AABB* bb)
